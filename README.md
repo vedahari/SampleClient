@@ -1,2 +1,2 @@
 # SampleClient
-A small example for tcp client
+A small example for tcp client.
