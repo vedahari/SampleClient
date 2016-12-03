@@ -10,19 +10,27 @@
 
 #include <vector>
 #include <thread>
+#include "Common.h"
 
-struct Connection{
+const int MAXIMUM_EVENT_SIZE = 50;
+
+class Connection{
 	int exec_core;
 	bool close_connection;
 	std::thread::id thread_id;
+	int epoll_fd;
+	int sock_fd;
+
+public:
+	int start_tcp_connection(const uint32_t& ip_addr, const uint16_t& port);
+	int stop_tcp_connection();
+	std::thread launch();
+	void run_connection_thread();
+	int send_kvstore_request();
+
 };
 
-class Connections{
-public:
-	void initialize(int size);
-	Connections(int conn_cnt):connections(conn_cnt){};
-	std::vector<Connection> connections;
-};
+
 
 
 
