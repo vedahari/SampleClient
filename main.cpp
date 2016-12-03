@@ -31,6 +31,9 @@ ClientAttributes process_args(int argc, char*argv[]){
 			break;
 		case 'c':
 			cl_attr.num_of_connections = atoi(optarg);
+			if (sysconf(_SC_NPROCESSORS_ONLN)<cl_attr.num_of_connections){
+				cl_attr.num_of_connections = sysconf(_SC_NPROCESSORS_ONLN);
+			}
 			break;
 		case 'm':
 			cl_attr.msgs_per_request = atoi(optarg);
@@ -66,10 +69,8 @@ ClientAttributes process_args(int argc, char*argv[]){
 int main(int argc, char *argv[])
 {
 	ClientAttributes attr = process_args(argc,argv);
-	Client::getInstance().setAttributes(attr);
-
-	run_benchmark2(ip_addr, port, num_of_connections, msgs_per_request,
-		      num_of_msgs_per_connection, delay);
+	Client::get_instance().initialize(attr);
+	Client::get_instance().run_benchmark();
 	return 0;
 }
 

@@ -9,9 +9,9 @@
 #define COMMON_H_
 #include <iostream>
 #include <cstdint>
-
-using namespace std::cout;
-using namespace std::endl;
+#include <unistd.h>
+using std::cout;
+using std::endl;
 
 
 

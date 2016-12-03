@@ -9,7 +9,7 @@
 #define UTILS_H_
 
 
-static void help(char * name);
+void help(char * name);
 
 
 #endif /* UTILS_H_ */

@@ -8,7 +8,10 @@
 #ifndef CLIENT_H_
 #define CLIENT_H_
 
+#include <vector>
+
 #include "Common.h"
+#include "Connections.h"
 
 struct ClientAttributes{
 	uint16_t port;
@@ -26,25 +29,25 @@ struct ClientAttributes{
 
 class Client{
 public:
-	static Client& getInstance()
+	static Client& get_instance()
 	{
 		static Client instance;
 		return instance;
 	}
+	void initialize(const ClientAttributes& attr);
 	Client(Client const&) = delete;
     void operator=(Client const&)  = delete;
 
 
 
-    void setAttributes(const ClientAttributes& attr);
-
+    void set_attributes(const ClientAttributes& attr);
+    ClientAttributes get_attributes();
+    void run_benchmark();
 
 private:
     Client(){}
-    Client(const Client&);
-    void operator=(const Client&);
-    ClientAttributes mAttr;
-
+    ClientAttributes client_attr;
+    std::vector<Connection> connections;
 };
 
 
